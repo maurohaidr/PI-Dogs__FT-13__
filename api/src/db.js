@@ -1,4 +1,5 @@
 require('dotenv').config();
+const axios = require("axios").default;
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
@@ -32,8 +33,27 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Dog, Raza, Temperamento } = sequelize.models;
 
+
+    axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos
+      let temps = [];
+      let unicos = [];
+      resultado.data.forEach(e => {
+        if(e.temperament){        
+        temps = e.temperament.replace(/ /g, "").split(',') // elimino los espacios en el string y lo conviero a un array de temperamentos 
+        temps.forEach(i => {
+          if(!unicos.includes(i)) unicos.push(i)
+        })}
+      })
+      unicos.forEach(e => Temperamento.create({nombre: e}))
+  })
+  .then(console.log('Base de datos cargada'))
+  .catch(error => console.log('Error al cargar la base de datos', error))
+
+
+
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
+
 Raza.belongsToMany(Temperamento, {through: 'temp-raza'})
 Temperamento.belongsToMany(Raza, {through: 'temp-raza'})
 

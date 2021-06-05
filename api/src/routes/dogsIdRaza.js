@@ -1,10 +1,13 @@
 const axios = require("axios").default;
+const { Raza } = require('../db');
 
 const dogsIdRaza = function(req, res) {
-    const razaId = req.params.idRaza;
+    let razaId = parseInt(req.params.idRaza)
+    
+    if(razaId<265){
     axios.get('https://api.thedogapi.com/v1/breeds').then(response => {
         const dog = response.data.filter(e => e.id == razaId)
-        retDog = {
+        const retDog = {
             nombre: dog[0].name,
             altura: dog[0].height.metric,
             peso: dog[0].weight.metric,
@@ -12,12 +15,27 @@ const dogsIdRaza = function(req, res) {
             temperamento: dog[0].temperament,
             imagen: dog[0].image.url
         }
-       res.json(retDog)
+       return res.json(retDog)
     })
+    }else{
+        razaId = razaId - 264
+        Raza.findByPk(razaId).then(resultado => {
+            console.log(resultado)
+            if (resultado) {
+                const retDog = {
+                    nombre: resultado.nombre,
+                    altura: resultado.altura,
+                    peso: resultado.peso,
+                    añosDeVida: resultado.añosDeVida,
+                    temperamento: resultado.temperamento,
+                    imagen: resultado.imagen
+                }
+              res.json(retDog)
+            } else {
+              res.status(404).send('No se encontro el id')
+            }
+          })
+    }
 }
 module.exports = dogsIdRaza
 
-/* (imagen, nombre y temperamento)
-[ ] Altura
-[ ] Peso
-[ ] Años de vida */ 

@@ -4,6 +4,7 @@ const { Router } = require('express');
 const dogs = require('./dogs')
 const dogsIdRaza = require('./dogsIdRaza')
 const postDog = require('./postDog')
+const temperament = require('./temperament')
 const router = Router();
 
 
@@ -27,10 +28,12 @@ router.get('/dogs/:idRaza', dogsIdRaza)
 /* [ ] GET /temperament:
 Obtener todos los temperamentos posibles
 En una primera instancia deberán obtenerlos desde la API externa y guardarlos en su propia base de datos y luego ya utilizarlos desde allí */
+router.get('/temperament', temperament)
 
 /* [ ] POST /dog:
 Recibe los datos recolectados desde el formulario controlado de la ruta de creación de raza de perro por body
 Crea una raza de perro en la base de datos
  */
 router.post('/dog', postDog)
+
 module.exports = router;

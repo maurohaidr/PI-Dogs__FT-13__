@@ -3,6 +3,11 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
 
   sequelize.define('raza', {
+    id:{
+      type:DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey:true,
+    },
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
@@ -16,6 +21,9 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     añosDeVida: {
+      type: DataTypes.STRING,
+    },
+    imagen:{
       type: DataTypes.STRING,
     }
   });
