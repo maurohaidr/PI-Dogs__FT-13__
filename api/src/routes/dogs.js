@@ -5,10 +5,8 @@ const { Op } = require("sequelize");
 const dogs = function(req, res) {
     if(req.query.name){
         const name = req.query.name;
-        const img = [];
         axios.get('https://api.thedogapi.com/v1/breeds/search?q='+name).then(response => {
-            if(response.data.length > 8) response.data.splice(8, response.data.length-1)    
-         
+            if(response.data.length > 8) response.data.splice(8, response.data.length-1)           
             const ret = [];            
             let img = '';
             response.data.forEach(e => {
@@ -17,36 +15,28 @@ const dogs = function(req, res) {
                     img = filtrado.image.url  
                     console.log(img)   
                     ret.push({
-                        //no devuelvo la imagen sino su id
                        imagen: img,
                        nombre: e.name,
-                       temperamento: e.temperament //ver temperamento, modelo aparte
+                       temperamento: e.temperament 
                        })
                  }).then(
-                    Raza.findAll({ where: { nombre:{ [Op.like]: '%'+name+'%' }  }} && { include: Temperamento }).then(resultado => {
-                        resultado.forEach(e => {
+                    Raza.findAll({ include: Temperamento, where: { nombre:{ [Op.like]: `%${name}%`  }}}/* , { where: { nombre:{ [Op.like]: name }  }}  */).then(resultado => {
+                        resultado.forEach(f => {
                             let temperamento = '';
-                            e.temperamentos.forEach(i =>{
-                                temperamento = temperamento.concat(i.nombre + ', ')
+                            f.temperamentos.forEach(i =>{
+                                temperamento = temperamento.concat(i.nombre + ', ') //junto el array de temperamentos en un string
                             })
+                            temperamento = temperamento.slice(0, temperamento.length-2) //elimino el ultimo ', '
                             ret.push({
-                                nombre: e.nombre,
-                                imagen: e.imagen,
-                                temperamento: temperamento //ver temperamento, modelo aparte
+                                nombre: f.nombre,
+                                imagen: f.imagen,
+                                temperamento: temperamento 
                             })
-                        })
-        
+                        })        
                     })
                  ).then(() =>{
                     return res.json(ret)
                 })
-                /* console.log(filtrado.image.url) */
-              /*   ret.push({
-                 //no devuelvo la imagen sino su id
-                imagen: img,
-                nombre: e.name,
-                temperamento: e.temperament //ver temperamento, modelo aparte
-                }) */
             })
             
         })
