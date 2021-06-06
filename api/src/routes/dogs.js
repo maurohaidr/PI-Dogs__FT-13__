@@ -39,6 +39,7 @@ const dogs = function(req, res) {
             })
             
         })
+        .catch(error => res.status(500).json(error))
     }
     else
     axios.get('https://api.thedogapi.com/v1/breeds').then(response => {

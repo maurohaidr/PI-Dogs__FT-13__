@@ -12,9 +12,10 @@ const dogNames = function(req, res) {
       resul.data.forEach(i => {
           names.push(i.name)
       })
-      res.json(names)
+      return res.json(names)
   })
  
   })
+  .catch(error => res.status(500).json(error))
 }
 module.exports = dogNames

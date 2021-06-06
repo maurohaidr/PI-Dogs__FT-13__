@@ -4,12 +4,12 @@ const { Raza, Temperamento } = require('../db');
 
 const temperament = function(req, res) {
   const ret = []
-  Temperamento.findAll({}).then(temperamentos =>{
-  temperamentos.forEach(e => {
+  Temperamento.findAll({}).then(result =>{
+  result.forEach(e => {
       ret.push(e.nombre)
   })
-  res.json(ret)
+  return res.json(ret)
   })
-  .catch(err => res.status(500).send(err))
+  .catch(err => {return res.status(500).json(err)})
 }
 module.exports = temperament

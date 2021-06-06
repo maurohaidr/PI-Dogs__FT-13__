@@ -28,6 +28,7 @@ const postDog = function(req, res) {
       return res.send('Raza creada')
       }
     })
+    .catch(err => {return res.status(500).json(err)})
     
 }
 

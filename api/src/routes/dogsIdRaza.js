@@ -17,6 +17,7 @@ const dogsIdRaza = function(req, res) {
         }
        return res.json(retDog)
     })
+    .catch(err => {return res.status(500).json(err)})
     }else{
         razaId = razaId - 264
         Raza.findByPk(razaId).then(resultado => {
@@ -32,9 +33,10 @@ const dogsIdRaza = function(req, res) {
                 }
               res.json(retDog)
             } else {
-              res.status(404).send('No se encontro el id')
+              return res.status(404).send('No se encontro el id')
             }
-          })
+        })
+        .catch(err => {return res.status(500).json(err)})
     }
 }
 module.exports = dogsIdRaza
