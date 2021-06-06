@@ -12,15 +12,14 @@ const dogs = function(req, res) {
             response.data.forEach(e => {
                 axios.get('https://api.thedogapi.com/v1/breeds').then(resp =>{
                     const filtrado = resp.data.filter(i => i.image.id === e.reference_image_id)[0]
-                    img = filtrado.image.url  
-                    console.log(img)   
+                    img = filtrado.image.url  //cambio el id por la url de la imagen
                     ret.push({
                        imagen: img,
                        nombre: e.name,
                        temperamento: e.temperament 
                        })
                  }).then(
-                    Raza.findAll({ include: Temperamento, where: { nombre:{ [Op.like]: `%${name}%`  }}}/* , { where: { nombre:{ [Op.like]: name }  }}  */).then(resultado => {
+                    Raza.findAll({ include: Temperamento, where: { nombre:{ [Op.like]: `%${name}%`  } } }).then(resultado => {
                         resultado.forEach(f => {
                             let temperamento = '';
                             f.temperamentos.forEach(i =>{
@@ -52,6 +51,6 @@ const dogs = function(req, res) {
         }))
         return res.json(ret)
         }
-    ).catch(error => res.send(error, 'Raza no encontrada'))
+    ).catch(error => res.send(error, 'Algo salio mal'))
 }
 module.exports = dogs

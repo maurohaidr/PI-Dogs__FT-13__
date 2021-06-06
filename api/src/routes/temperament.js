@@ -10,5 +10,6 @@ const temperament = function(req, res) {
   })
   res.json(ret)
   })
+  .catch(err => res.status(500).send(err))
 }
 module.exports = temperament

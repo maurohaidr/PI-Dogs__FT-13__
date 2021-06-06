@@ -5,6 +5,7 @@ const dogs = require('./dogs')
 const dogsIdRaza = require('./dogsIdRaza')
 const postDog = require('./postDog')
 const temperament = require('./temperament')
+const dogNames = require('./dogNames')
 const router = Router();
 
 
@@ -36,4 +37,6 @@ Crea una raza de perro en la base de datos
  */
 router.post('/dog', postDog)
 
+/* devuelve la lista de todos los nombres de raza tanto de la api como de la bd */
+router.get('/dogNames', dogNames)
 module.exports = router;
