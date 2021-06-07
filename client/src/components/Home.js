@@ -18,7 +18,8 @@ const Home = (props) => {
     const [raza, setRaza] = useState('');
     const [filter, setFilter] = useState('Raza')
     const [order, setOrder] = useState('a-z')
-
+    const [page, setPage] = useState(0)
+    const [ascenDescen, setAscenDescen] = useState('Ascendente')
     /* useEffect(() => {  
       console.log(props.razas)  
       {props.razas && props.razas.map((e) => {
@@ -37,51 +38,101 @@ const Home = (props) => {
       }
 
     let handleSubmit = function(e) {
-        e.preventDefault(); 
+        e.preventDefault();         
         props.getRazas(raza)
       }
+
     let toggleFilter = function(e){
       e.preventDefault();
       if(filter === 'Raza')
       setFilter('Temperamento')
       else setFilter('Raza')
     }
+    let toggleascenDescen = function(e){
+      e.preventDefault();
+      if(ascenDescen === 'Ascendente'){
+      setAscenDescen('Descendente')
+      props.razas.reverse()
+      }
+      else {
+        setAscenDescen('Ascendente')
+        props.razas.reverse()
+      }
+    }
+
     let toggleOrder = function(e){
       e.preventDefault(); 
       if(order === 'a-z'){
       setOrder('Peso')
-      props.razas && props.razas.sort((a, b) => (a.weight.metric > b.weight.metric) ? 1 : -1)
-      }else setOrder('a-z')
-      props.razas && props.razas.sort((a, b) => (a.name > b.name) ? 1 : -1)
+      props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 2)) > parseInt(b.peso.slice(0 , 2))) ? 1 : -1)
+      //saco el promedio del peso y lo ordeno acorde a eso
+      }
+      if(order === 'Peso') {
+      setOrder('a-z')
+      props.razas && props.razas.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1)
+      console.log('ordenados por nombre')
+      }
+    }
+
+    let nextPage = function(e){
+      e.preventDefault(); 
+      if(props.razas.length >= page*8+8)
+      setPage(page+1)
+    }
+    let prevPage = function(e){
+      e.preventDefault();
+      if(page>0) setPage(page-1)
     }
 
     return (
       <div className='homeCointainter'>
-        <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
-          <div>
+        <div className='bar'>
+          <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
             <input
+              className='input'
               type="text"
               autoComplete="off"
               value={raza}
               onChange={(e) => handleChange(e)}
             />
-          </div>
-          <button type="submit">BUSCAR</button>
-        </form> 
-        <span>Filtro:</span>
-        <button onClick={(e) => toggleFilter(e)}>{filter}</button>
-        <span>Orden:</span>
-        <button onClick={(e) => toggleOrder(e)}>{order}</button>
-        {props.razas && props.razas.map((e) => {
-            return(            
+            <button className='btn' type="submit">BUSCAR</button>
+          </form> 
+          <span className='barItem'>Filtro:</span>
+          <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
+          <span className='barItem' >Orden:</span>          
+          <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
+          <button className='btn' onClick={(e) => toggleascenDescen(e)}>{ascenDescen}</button>
+          <button className='btn' onClick={(e) => prevPage(e)}>prev</button>
+          <button className='btn' onClick={(e) => nextPage(e)}>next</button>
+        </div>
+        <div className='cardsBox'>
+        {props.razas && props.razas.slice(page*8, page*8+8).map((e) => {
+            return(
                 <div className='razaCard'>
-                <span>Nombre:</span><span>{e.nombre}</span>
-                <span>Temperamento:</span>{e.temperamento}
-                <img src={e.imagen} width="200" height="200" alt="" />
+                  <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
+                  <div className='textCard'>
+                    <span>Name:</span><span>{e.nombre}</span>
+                    <span>Temperament:</span><span>{e.temperamento}</span>
+                    <span>Weight:</span><span>{e.peso}&nbsp;Lb</span>
+                  </div>           
                 </div>
                 )}
             )             
         }
+      {/*   {props.razas && props.razas.length<=page*8+8 && props.razas.map((e) => {
+            return(            
+                <div className='razaCard'>
+                  <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
+                  <div className='textCard'>
+                    <span>Nombre:</span><span>{e.nombre}</span>
+                    <span>Temperamento:</span>{e.temperamento}
+                    <span>Peso:</span>{e.peso}     
+                  </div>           
+                </div>
+                )}
+            )             
+        } */}
+        </div>
         
         {/* <div className='bar'><span>Buscar</span><button>raza/temperamento</button><input></input>
         <button>ordenar por peso/alfabeticamente</button><button>ascendente/descendente</button></div> */}
