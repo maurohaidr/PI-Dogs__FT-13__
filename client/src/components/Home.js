@@ -10,7 +10,7 @@ Temperamento
 [ ] Paginado para ir buscando y mostrando las siguientes razas */
 import { Link } from 'react-router-dom';
 import './home.css'
-import{ getRazas } from '../actions/actions'
+import{ getRazas, getTemps } from '../actions/actions'
 import React, { useState , useEffect} from 'react';
 import { connect } from "react-redux";
 
@@ -38,8 +38,9 @@ const Home = (props) => {
       }
 
     let handleSubmit = function(e) {
-        e.preventDefault();         
-        props.getRazas(raza)
+        e.preventDefault(); 
+        if(filter === 'Raza') props.getRazas(raza.toLowerCase())
+        if(filter === 'Temperamento') props.getTemps(raza.toLowerCase())
       }
 
     let toggleFilter = function(e){
@@ -64,7 +65,7 @@ const Home = (props) => {
       e.preventDefault(); 
       if(order === 'a-z'){
       setOrder('Peso')
-      props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 2)) > parseInt(b.peso.slice(0 , 2))) ? 1 : -1)
+      props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
       //saco el promedio del peso y lo ordeno acorde a eso
       }
       if(order === 'Peso') {
@@ -150,6 +151,7 @@ const Home = (props) => {
   function mapDispatchToProps(dispatch) {
     return {
       getRazas: raza => dispatch(getRazas(raza)), 
+      getTemps: temp => dispatch(getTemps(temp)),
     };
   }
   
