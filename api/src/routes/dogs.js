@@ -16,10 +16,13 @@ const dogs = function(req, res) {
                     if(peso === 'NaN') peso = 'No Info'
                     img = filtrado.image.url  //cambio el id por la url de la imagen, si no existe le asigno una por default
                     ret.push({
+                       id: e.id,
                        imagen: img,
                        nombre: e.name,
                        temperamento: e.temperament,
-                       peso: peso
+                       peso: peso,
+                       altura: e.height.imperial,
+                       vida: e.life_span
                        })
                  })
                  Raza.findAll({ include: Temperamento, where: { nombre:{ [Op.like]: `%${name}%`  } } }).then(resultado => {
@@ -30,13 +33,15 @@ const dogs = function(req, res) {
                         })
                         temperamento = temperamento.slice(0, temperamento.length-2) //elimino el ultimo ', '
                         ret.push({
+                            id: f.id,
                             nombre: f.nombre,
                             imagen: f.imagen,
                             temperamento: temperamento,
-                            peso: f.peso
+                            peso: f.peso,
+                            altura: f.altura,
+                            vida: f.vida
                         })
                     })
-                    console.log(ret)
                     return res.json(ret)        
                 })
                               
@@ -50,10 +55,13 @@ const dogs = function(req, res) {
         const ret = [];
         response.data.forEach(e => {
             ret.push({
+            id: e.id,
             imagen: e.image.url,
             nombre: e.name,
             temperamento: e.temperament,
-            peso: e.weight.imperial
+            peso: e.weight.imperial,
+            altura: e.height.imperial,
+            vida: e.life_span
             })
         })
         return res.json(ret)

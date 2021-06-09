@@ -1,0 +1,6 @@
+.textDet{
+    font-size:13px;
+    display:flex;
+    flex-direction: column;
+    color:rgb(8, 6, 6);
+}

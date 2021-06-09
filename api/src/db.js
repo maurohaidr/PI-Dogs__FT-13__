@@ -34,7 +34,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Dog, Raza, Temperamento } = sequelize.models;
 
 
-    axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos
+/*     axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos
       let temps = [];
       let unicos = [];
       resultado.data.forEach(e => {
@@ -44,10 +44,10 @@ const { Dog, Raza, Temperamento } = sequelize.models;
           if(!unicos.includes(i)) unicos.push(i)
         })}
       })
-      unicos.forEach(e => Temperamento.create({nombre: e}))
+      unicos.forEach(e => Temperamento.create({nombre: e.toLowerCase()}))
   })
   .then(console.log('Base de datos cargada'))
-  .catch(error => console.log('Error al cargar la base de datos', error))
+  .catch(error => console.log('Error al cargar la base de datos', error)) */
 
 
 

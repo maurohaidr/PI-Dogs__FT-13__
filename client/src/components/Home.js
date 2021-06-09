@@ -10,53 +10,51 @@ Temperamento
 [ ] Paginado para ir buscando y mostrando las siguientes razas */
 import { Link } from 'react-router-dom';
 import './home.css'
-import{ getRazas, getTemps } from '../actions/actions'
+import{ getRazas, getTemps, reset, getId } from '../actions/actions'
 import React, { useState , useEffect} from 'react';
 import { connect } from "react-redux";
+import {BiLeftArrow, BiRightArrow, BiDownArrowAlt, BiUpArrowAlt} from "react-icons/bi";
 
 const Home = (props) => {
+
     const [raza, setRaza] = useState('');
-    const [filter, setFilter] = useState('Raza')
+    const [filter, setFilter] = useState('Breed')
     const [order, setOrder] = useState('a-z')
     const [page, setPage] = useState(0)
-    const [ascenDescen, setAscenDescen] = useState('Ascendente')
-    /* useEffect(() => {  
-      console.log(props.razas)  
-      {props.razas && props.razas.map((e) => {
-        return(            
-            <div className='razaCard'>
-            <span>Nombre:</span><span>{e.nombre}</span>
-            <span>Temperamento:</span>{e.temperamento}
-            <img src={e.imagen} width="200" height="200" alt="" />
-            </div>
-            )}
-        )             
-      }
-    }, [props.razas]) */
+    const [ascenDescen, setAscenDescen] = useState('BiUpArrowAlt')
+
+    props.getId(undefined) // seteo el detalle en undefined, para que no se guarde el detalle anterior
+
     let handleChange = function (e) {
         setRaza(e.target.value);
-      }
+    }
 
     let handleSubmit = function(e) {
         e.preventDefault(); 
-        if(filter === 'Raza') props.getRazas(raza.toLowerCase())
-        if(filter === 'Temperamento') props.getTemps(raza.toLowerCase())
-      }
+        if(filter === 'Breed') props.getRazas(raza.toLowerCase())
+        if(filter === 'Temperament') props.getTemps(raza.toLowerCase())
+    }
 
     let toggleFilter = function(e){
       e.preventDefault();
-      if(filter === 'Raza')
-      setFilter('Temperamento')
-      else setFilter('Raza')
+      if(filter === 'Breed'){
+        props.getTemps(raza.toLowerCase())      
+        setFilter('Temperament')
+      }
+      else {
+        props.getRazas(raza.toLowerCase())
+        setFilter('Breed')        
+      }
     }
+
     let toggleascenDescen = function(e){
       e.preventDefault();
-      if(ascenDescen === 'Ascendente'){
-      setAscenDescen('Descendente')
+      if(ascenDescen === 'BiDownArrowAlt'){
+      setAscenDescen('BiUpArrowAlt')
       props.razas.reverse()
       }
       else {
-        setAscenDescen('Ascendente')
+        setAscenDescen('BiDownArrowAlt')
         props.razas.reverse()
       }
     }
@@ -64,22 +62,22 @@ const Home = (props) => {
     let toggleOrder = function(e){
       e.preventDefault(); 
       if(order === 'a-z'){
-      setOrder('Peso')
-      props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
+          setOrder('Weight')
+          props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
       //saco el promedio del peso y lo ordeno acorde a eso
       }
-      if(order === 'Peso') {
-      setOrder('a-z')
-      props.razas && props.razas.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1)
-      console.log('ordenados por nombre')
+      if(order === 'Weight') {
+          setOrder('a-z')
+          props.razas && props.razas.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1)
       }
     }
 
     let nextPage = function(e){
       e.preventDefault(); 
       if(props.razas.length >= page*8+8)
-      setPage(page+1)
+        setPage(page+1)      
     }
+
     let prevPage = function(e){
       e.preventDefault();
       if(page>0) setPage(page-1)
@@ -102,42 +100,38 @@ const Home = (props) => {
           <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
           <span className='barItem' >Orden:</span>          
           <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
-          <button className='btn' onClick={(e) => toggleascenDescen(e)}>{ascenDescen}</button>
-          <button className='btn' onClick={(e) => prevPage(e)}>prev</button>
-          <button className='btn' onClick={(e) => nextPage(e)}>next</button>
+          <button className='btn' onClick={(e) => toggleascenDescen(e)}>
+            {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
+            {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}
+          </button>
+          
+          
         </div>
-        <div className='cardsBox'>
-        {props.razas && props.razas.slice(page*8, page*8+8).map((e) => {
-            return(
-                <div className='razaCard'>
-                  <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
-                  <div className='textCard'>
-                    <span>Name:</span><span>{e.nombre}</span>
-                    <span>Temperament:</span><span>{e.temperamento}</span>
-                    <span>Weight:</span><span>{e.peso}&nbsp;Lb</span>
-                  </div>           
-                </div>
-                )}
-            )             
-        }
-      {/*   {props.razas && props.razas.length<=page*8+8 && props.razas.map((e) => {
-            return(            
-                <div className='razaCard'>
-                  <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
-                  <div className='textCard'>
-                    <span>Nombre:</span><span>{e.nombre}</span>
-                    <span>Temperamento:</span>{e.temperamento}
-                    <span>Peso:</span>{e.peso}     
-                  </div>           
-                </div>
-                )}
-            )             
-        } */}
+        <div className='pageBox'>
+          <button className='btnPage' onClick={(e) => prevPage(e)}><BiLeftArrow /></button>
+          <div className='cardsBox'>
+            {props.razas && props.razas.length > 0 ? props.razas.slice(page*8, page*8+8).map((e) => {
+              return(
+                <Link  to={'/detalles'}>
+                  <div onClick={() => props.getId(e.id)} className='razaCard'>
+                    <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
+                    <div className='textCard'>
+                      <span className='homeName'>{e.nombre}</span>
+                      <span>Temperament:</span><span>{e.temperamento}</span>
+                      <span>Weight:</span><span>{e.peso}&nbsp;Lb</span>
+                    </div>
+                  </div>
+                </Link>
+                  )
+            })
+            : props.razas && props.razas.length < 1? <div className='razaCardNotFound'>
+              <img className='imgCard' src='https://besthqwallpapers.com/Uploads/12-6-2018/55353/thumb2-pug-sad-dog-puppy-dogs-sad-eyes.jpg' width="480" height="320" alt="" />
+              <span className='textCardNotFound'>Sorry, but we couldn't find any breed to match your seach!</span>
+              </div> : null                 
+            }        
+          </div> 
+          <button className='btnPage' onClick={(e) => nextPage(e)}><BiRightArrow/></button>   
         </div>
-        
-        {/* <div className='bar'><span>Buscar</span><button>raza/temperamento</button><input></input>
-        <button>ordenar por peso/alfabeticamente</button><button>ascendente/descendente</button></div> */}
-        
       </div>      
     )
   };
@@ -152,6 +146,8 @@ const Home = (props) => {
     return {
       getRazas: raza => dispatch(getRazas(raza)), 
       getTemps: temp => dispatch(getTemps(temp)),
+      getId: id => dispatch(getId(id)),
+      reset: () => dispatch(reset())
     };
   }
   
