@@ -18,11 +18,8 @@ export function getId(id) {
     }
   }
   return function(dispatch) {
-    return axios.get("http://localhost:3001/dogs")
-      .then(result => {
-        const filtrado = result.data.filter(e => e.id === id);
-        dispatch({ type: GET_RAZAS_ID, payload: filtrado });
-      })
+    console.log(id)
+        dispatch({ type: GET_RAZAS_ID, payload: id });
   };
 }
 

@@ -108,12 +108,18 @@ const Home = (props) => {
           
         </div>
         <div className='pageBox'>
-          <button className='btnPage' onClick={(e) => prevPage(e)}><BiLeftArrow /></button>
+          <div className='btnPageBox'>
+            <button className='btnPage' onClick={(e) => prevPage(e)}><BiLeftArrow /></button>
+            <button className='btnPage' onClick={(e) => nextPage(e)}><BiRightArrow/></button>   
+          </div>
           <div className='cardsBox'>
             {props.razas && props.razas.length > 0 ? props.razas.slice(page*8, page*8+8).map((e) => {
               return(
                 <Link  to={'/detalles'}>
-                  <div onClick={() => props.getId(e.id)} className='razaCard'>
+                  <div onClick={() => {console.log({id:e.id, imagen:e.imagen, nombre:e.nombre, temperamento:e.temperamento, peso:e.peso, altura:e.altura, vida:e.vida}); props.getId(
+                      {id:e.id, imagen:e.imagen, nombre:e.nombre, temperamento:e.temperamento, peso:e.peso, altura:e.altura, vida:e.vida}
+                  )}} 
+                    className='razaCard'>
                     <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
                     <div className='textCard'>
                       <span className='homeName'>{e.nombre}</span>
@@ -126,11 +132,11 @@ const Home = (props) => {
             })
             : props.razas && props.razas.length < 1? <div className='razaCardNotFound'>
               <img className='imgCard' src='https://besthqwallpapers.com/Uploads/12-6-2018/55353/thumb2-pug-sad-dog-puppy-dogs-sad-eyes.jpg' width="480" height="320" alt="" />
-              <span className='textCardNotFound'>Sorry, but we couldn't find any breed to match your seach!</span>
+              <span className='textCardNotFound'>Sorry, but we couldn't find any breed to match your search!</span>
               </div> : null                 
-            }        
-          </div> 
-          <button className='btnPage' onClick={(e) => nextPage(e)}><BiRightArrow/></button>   
+            }
+          </div>
+          
         </div>
       </div>      
     )
