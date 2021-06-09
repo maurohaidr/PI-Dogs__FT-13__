@@ -1,6 +1,39 @@
-.textDet{
-    font-size:13px;
+.detContainer{
+    display:block;    
+    background-image:url('https://thumbs.dreamstime.com/b/cuaderno-de-brown-aislado-en-el-fondo-blanco-107381511.jpg') ;
+    min-height: 100vh; 
+    min-width: 100vh; 
+    background-repeat: no-repeat;
+}
+.detBox{
+    position:absolute;
+    left:75px;
+    top:80px;
+    border-radius: 5px;
+    padding-bottom: 10px;
     display:flex;
     flex-direction: column;
-    color:rgb(8, 6, 6);
+    margin:5px;
+    width:550px;
+    height: 450px;
+}
+.textDet{
+    font-size:15px;
+    display:flex;
+    flex-direction: column;
+    color:rgb(2,46,87);
+}
+.textDetItem{
+    margin: 5px;
+}
+.imgDet{
+    margin:auto;
+    border-radius: 5px;
+        border-width: 1px;
+
+}
+.dogsDet{
+    position:absolute;
+    right:20px;
+    bottom:30px;
 }

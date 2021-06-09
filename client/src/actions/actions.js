@@ -1,29 +1,25 @@
 import axios from "axios"
 
-/* export function getId(id) {
-  console.log('1')
-  return async function(dispatch) {
-    console.log('2')
-    const result = await axios.get("http://localhost:3001/dogs");
-    console.log('3');
-    let filtrado = result.data.filter(e => e.id === id);
-    console.log('filtrado', filtrado);
-    dispatch({ type: GET_RAZAS_ID, payload: filtrado });
-  };
-} */
+
 export function getId(id) {
   if(id === undefined) {
     return function(dispatch) {
-      dispatch({ type: GET_RAZAS_ID, payload: undefined });
+      dispatch({ type: GET_ID, payload: undefined });
     }
   }
   return function(dispatch) {
     console.log(id)
-        dispatch({ type: GET_RAZAS_ID, payload: id });
+        dispatch({ type: GET_ID, payload: id });
   };
 }
 
+
 export function getRazas(raza) {
+    if(raza === undefined) {
+      return function(dispatch) {
+        dispatch({ type: GET_RAZAS, payload: undefined });
+      }
+    }
     console.log('actions', 1)
     return async function(dispatch) {
       console.log('actions', 2)
@@ -32,7 +28,6 @@ export function getRazas(raza) {
       dispatch({ type: GET_RAZAS, payload: result.data });
     };
 }
-
 
 
 export function getTemps(temp) {
@@ -50,15 +45,8 @@ export function reset() {
          dispatch({ type: RESET });      
   };
 }
-/* export function getId(id) {
-  return function(dispatch) {
-    console.log('action', id)
-         dispatch({ type: GET_ID, payload:id });      
-  };
-} */
 
   export const RESET = "RESET"
   export const GET_RAZAS = "GET_RAZAS"
   export const GET_TEMPS = "GET_TEMPS"
-  export const GET_RAZAS_ID = "GET_RAZAS_ID"
   export const GET_ID = "GET_ID"

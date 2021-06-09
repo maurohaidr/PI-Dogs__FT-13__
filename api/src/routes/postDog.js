@@ -18,7 +18,7 @@ const postDog = function(req, res) {
             }
           })      
         })
-      Raza.create({nombre:nombre, peso:peso, altura:altura, añosDeVida:vida, imagen:imagen}).then(resultado => {
+      Raza.create({nombre:nombre, peso:peso, altura:altura, vida:vida, imagen:imagen}).then(resultado => {
         temps.forEach(i => {
           Temperamento.findOne({where: {nombre:i}}).then(result =>
             resultado.addTemperamento(result) 

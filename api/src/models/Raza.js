@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    añosDeVida: {
+    vida: {
       type: DataTypes.STRING,
     },
     imagen:{

@@ -11,9 +11,10 @@ Temperamento
 import { Link } from 'react-router-dom';
 import './home.css'
 import{ getRazas, getTemps, reset, getId } from '../actions/actions'
-import React, { useState , useEffect} from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import {BiLeftArrow, BiRightArrow, BiDownArrowAlt, BiUpArrowAlt} from "react-icons/bi";
+
 
 const Home = (props) => {
 
@@ -22,6 +23,7 @@ const Home = (props) => {
     const [order, setOrder] = useState('a-z')
     const [page, setPage] = useState(0)
     const [ascenDescen, setAscenDescen] = useState('BiUpArrowAlt')
+    const [searching, setSearching] = useState(false)
 
     props.getId(undefined) // seteo el detalle en undefined, para que no se guarde el detalle anterior
 
@@ -31,6 +33,8 @@ const Home = (props) => {
 
     let handleSubmit = function(e) {
         e.preventDefault(); 
+        props.getRazas(undefined)
+        setSearching(true)
         if(filter === 'Breed') props.getRazas(raza.toLowerCase())
         if(filter === 'Temperament') props.getTemps(raza.toLowerCase())
     }
@@ -104,14 +108,19 @@ const Home = (props) => {
             {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
             {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}
           </button>
-          
-          
+          <Link to='/creacion'>
+            <button className='btn'>Add new breed</button>
+          </Link>
         </div>
         <div className='pageBox'>
+          {props.razas && props.razas.length > 0 ? 
           <div className='btnPageBox'>
             <button className='btnPage' onClick={(e) => prevPage(e)}><BiLeftArrow /></button>
             <button className='btnPage' onClick={(e) => nextPage(e)}><BiRightArrow/></button>   
           </div>
+          : null
+          }
+          
           <div className='cardsBox'>
             {props.razas && props.razas.length > 0 ? props.razas.slice(page*8, page*8+8).map((e) => {
               return(
@@ -124,7 +133,7 @@ const Home = (props) => {
                     <div className='textCard'>
                       <span className='homeName'>{e.nombre}</span>
                       <span>Temperament:</span><span>{e.temperamento}</span>
-                      <span>Weight:</span><span>{e.peso}&nbsp;Lb</span>
+{/*                       <span>Weight:</span><span>{e.peso}&nbsp;Lb</span> */}
                     </div>
                   </div>
                 </Link>
@@ -133,7 +142,12 @@ const Home = (props) => {
             : props.razas && props.razas.length < 1? <div className='razaCardNotFound'>
               <img className='imgCard' src='https://besthqwallpapers.com/Uploads/12-6-2018/55353/thumb2-pug-sad-dog-puppy-dogs-sad-eyes.jpg' width="480" height="320" alt="" />
               <span className='textCardNotFound'>Sorry, but we couldn't find any breed to match your search!</span>
-              </div> : null                 
+              </div> 
+            : searching &&
+              <div className='loadingHome'>
+                  <img src='https://www.petbarn.com.au/skin/frontend/enterprise/petbarn/images/dropdowns/dropdown_dog.gif' width="480" height="320" alt="" />
+                  <span>Loading..</span>
+              </div>                             
             }
           </div>
           

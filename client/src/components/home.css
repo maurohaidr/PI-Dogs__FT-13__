@@ -1,6 +1,6 @@
 .homeCointainter{
     display:block;    
-    background-image:url('https://s1.eestatic.com/2020/08/11/curiosidades/mascotas/mascotas-perros-curiosidades_512209327_157471851_1706x960.jpg') ;
+    background-image:url('https://wallpapercave.com/wp/wp3171098.jpg') ;
     background-size:cover;
     min-height: 100vh; 
     min-width: 100vh; 
@@ -16,31 +16,23 @@
 }
 .razaCard{
     border-radius: 25px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(0,90,141, 0.4);
     display:flex;
     flex-direction: column;
     margin:5px;
     width:260px;
-    height: 200px;
+    height: 205px;
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(255, 253, 253);
+    border-color: rgb(255,150,173);
     outline:none;
     font-size:0px;
+    padding-bottom: 5px;
 }
 .razaCard:hover{
-    border-radius: 25px;
-    background-color: rgba(0, 0, 0, 0.6);
-    display:flex;
-    flex-direction: column;
-    margin:5px;
-    width:260px;
     height:fit-content;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(255, 253, 253);
-    outline:none;
     font-size:13px;
+    background-color:rgb(0,90,141, 0.7);
 }
 .razaCardNotFound{
     border-radius: 25px;
@@ -52,7 +44,7 @@
     height: 430px;
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(255, 253, 253);
+    border-color: rgb(250,243,243);
 }
 .homeName{
     font-size: 12px;
@@ -61,61 +53,64 @@
     font-size:20px;
     display:flex;
     flex-direction: column;
-    color:white;
+    color:rgb(250,243,243);
 }
 .textCard{
+    font-weight:bolder;
     display:flex;
     flex-direction: column;
-    color:white;
+    color:rgb(250,243,243);
 }
-
-
 .imgCard{
     border-radius: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
+    margin: 10px;
+
 }
 .bar{
     height:40px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(0,90,141, 0.4);
     padding-top: 10px;
     display: flex ;
     flex-direction: row;
-    justify-content: start;
+    justify-content: flex-start;
 }
 .barItem{
     margin-left: 10px;
     margin-right:10px;
     font-size:20px ;
-    color:white;
+    color:rgb(250,243,243);
 }
 .btn{
     height:25px;
     margin-top:5px;
     margin-left: 5px;
     border-radius: 3px;
-    background-color: rgb(255, 255, 255);
-    color:rgb(37, 34, 34);
-    border:none;
+    background-color: rgb(250,243,243);
+    color:rgb(2,46,87);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255,150,173);
     outline:none;
 }
 .btn:hover{
-    color: rgb(255, 255, 255);
-    background-color:rgba(0, 0, 0, 0.4);
+    color: rgb(250,243,243);
+    background-color:rgb(2,46,87, 0.8);
 }
 .btnPage{
     height:25px;
     margin:10px;
     border-radius: 3px;
-    background-color: rgb(255, 255, 255, 0.8);
+    background-color: rgb(250,243,243, 0.8);
     color:rgb(37, 34, 34);
-    border:none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255,150,173);
     outline:none;
 }
 .btnPage:hover{
-    color: rgb(255, 255, 255);
-    background-color:rgba(0, 0, 0, 0.4);
+    color: rgb(250,243,243);
+    background-color:rgb(2,46,87, 0.8);
+    
 }
 .input{
     margin-left: 5px;
@@ -124,4 +119,8 @@
   display:flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.loadingHome{
+    display:flex;
+    flex-direction: column;
 }

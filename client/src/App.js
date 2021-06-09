@@ -11,7 +11,6 @@ function App() {
     <div className="App">
       <Route exact path='/' component={Inicio}/>
       <Route path='/home' component={Home}/>
-      {/* <Route path='/detalles/:id' render={({match})=> <Detalles id={match.params.id}/> } /> */}
       <Route path='/detalles' component={Detalles}/>
       <Route path='/creacion' component={Creacion}/>
     </div>
