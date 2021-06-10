@@ -62,7 +62,8 @@ export function Creacion() {
         })
     }
     
-    const handleSubmit = async e => {        e.preventDefault()
+    const handleSubmit = async e => {        
+        e.preventDefault()
 
         const names = await axios.get("http://localhost:3001/dogNames")
         if(names.data.includes(state.nombre)) {
@@ -83,8 +84,7 @@ export function Creacion() {
         else {setState({
             ...state,
             notUrl:true
-        })}
-        
+        })}        
       }
       
     return (

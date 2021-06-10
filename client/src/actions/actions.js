@@ -20,11 +20,8 @@ export function getRazas(raza) {
         dispatch({ type: GET_RAZAS, payload: undefined });
       }
     }
-    console.log('actions', 1)
     return async function(dispatch) {
-      console.log('actions', 2)
       const result = await axios.get("http://localhost:3001/dogs?name=" + raza);
-      console.log('actions', 3);
       dispatch({ type: GET_RAZAS, payload: result.data });
     };
 }
