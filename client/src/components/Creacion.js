@@ -12,7 +12,14 @@ import './creacion.css'
 import axios from "axios"
 
 export function Creacion() {
+
     const[state, setState] = useState({
+        pesoMin: '',
+        pesoMax: '',
+        alturaMin: '',
+        alturaMax: '',
+        vidaMin: '',
+        vidaMax: '',
         nombre: '',
         temperamento: '',
         peso: '',
@@ -20,35 +27,50 @@ export function Creacion() {
         vida: '',
         imagen: '',
         exists: false, 
+        success: false,
     })
-    const handleChange = () => {        
-        setState({
-            nombre: document.querySelector('input[name=nombre]').value,
-            temperamento: document.querySelector('input[name=temperamento]').value,
-            peso: document.querySelector('input[name=peso]').value,
-            altura: document.querySelector('input[name=altura]').value,
-            vida: document.querySelector('input[name=vida]').value,
-            imagen: document.querySelector('input[name=imagen]').value
+
+    /* async function setNames() {
+        !state.names && setState({
+            ...state,
+            names: await axios.get("http://localhost:3001/dogNames").data
         })
     }
-    const handleSubmit = async e => {
-        e.preventDefault()
+    setNames() */
+ 
+    const handleChange = () => {   
+        setState({
+            ...state,
+            pesoMin: document.querySelector('input[name=pesoMin]').value,
+            pesoMax: document.querySelector('input[name=pesoMax]').value,
+            alturaMin: document.querySelector('input[name=alturaMin]').value,
+            alturaMax: document.querySelector('input[name=alturaMax]').value,
+            vidaMin: document.querySelector('input[name=vidaMin]').value,
+            vidaMax: document.querySelector('input[name=vidaMax]').value,
+            nombre: document.querySelector('input[name=nombre]').value,
+            temperamento: document.querySelector('input[name=temperamento]').value,
+            peso: document.querySelector('input[name=pesoMin]').value.concat(' - ').concat(document.querySelector('input[name=pesoMax]').value),
+            altura: document.querySelector('input[name=alturaMin]').value.concat(' - ').concat(document.querySelector('input[name=alturaMax]').value),
+            vida: document.querySelector('input[name=vidaMin]').value.concat(' - ').concat(document.querySelector('input[name=vidaMax]').value).concat(' years'),
+            imagen: document.querySelector('input[name=imagen]').value,
+            success: false,
+        })
+    }
+    const handleSubmit = async e => {        e.preventDefault()
+
         const names = await axios.get("http://localhost:3001/dogNames")
-        if(names.data.includes(state.nombre)) setState({
+        if(names.data.includes(state.nombre)) {console.log('includes name',state); setState({
             ...state,
             exists:true
-        })
-        else setState({
+        })}
+        else {
+            setState({
             ...state,
             exists:false
-        })        
-        console.log(state)
+            })
+            alert('Breed created')
+        }
         axios.post("http://localhost:3001/dog", state)
-        .then(response => {
-            return (
-                <div><h1>{response}</h1></div>
-            )
-        })
       }
       
     return (
@@ -57,7 +79,6 @@ export function Creacion() {
           <div className='formItem'>
             <span>Name</span>&nbsp;
             <input className={state.exists && 'errorImput'} type="text" onChange={handleChange} value={state.nombre} name='nombre' placeholder='name' required />&nbsp;
-            <span>{state.exists && <span className='errorText'>A breed with that name already exists</span>}</span>
           </div>        
           <div className='formItem'>
               <span>Tempetament:</span>&nbsp;
@@ -65,21 +86,27 @@ export function Creacion() {
           </div>          
           <div className='formItem'>
               <span>Weight(lb)</span>&nbsp;
-              <input type="text" onChange={handleChange} value={state.peso} name='peso' placeholder='n - n' required />
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.pesoMin} name='pesoMin' placeholder='min' required />
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.pesoMax} name='pesoMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
               <span>Height(inches)</span>&nbsp;
-              <input type="text" onChange={handleChange} value={state.altura} name='altura' placeholder='n - n' required />
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.alturaMin} name='alturaMin' placeholder='min' required />
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.alturaMax} name='alturaMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
-              <span>Life span</span>&nbsp;
-              <input type="text" onChange={handleChange} value={state.vida} name='vida' placeholder='n - n years' required />
+              <span>Life span(years)</span>&nbsp;
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.vidaMin} name='vidaMin' placeholder='min' required />
+              <input className='shorterImput' type="text" onChange={handleChange} value={state.vidaMax} name='vidaMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
               <span>Image</span>&nbsp;
               <input type="text" onChange={handleChange} value={state.imagen} name="imagen" placeholder="Url" required />
           </div>
+          <div>
           <input type='submit' value='Add'/>
+          </div>
+          <span>{state.exists && <span className='errorText'>A breed with that name already exists</span>}</span>
         </form>  
       </div>
     )

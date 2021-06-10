@@ -42,16 +42,16 @@ const Home = (props) => {
     let toggleFilter = function(e){
       e.preventDefault();
       if(filter === 'Breed'){
-        props.getRazas(undefined)
-        props.getTemps(raza.toLowerCase())      
+        /* props.getRazas(undefined)
+        props.getTemps(raza.toLowerCase())        
+        setSearching(true) */
         setFilter('Temperament')
-        setSearching(true)
       }
       else {
-        props.getRazas(undefined)
-        props.getRazas(raza.toLowerCase())
-        setFilter('Breed')
-        setSearching(true)        
+        /* props.getRazas(undefined)
+        props.getRazas(raza.toLowerCase())        
+        setSearching(true) */    
+        setFilter('Breed')    
       }
     }
 
@@ -102,11 +102,11 @@ const Home = (props) => {
               value={raza}
               onChange={(e) => handleChange(e)}
             />
-            <button className='btn' type="submit">BUSCAR</button>
+            <button className='btn' type="submit">Search</button>
           </form> 
-          <span className='barItem'>Filtro:</span>
+          <span className='barItem'>Search by:</span>
           <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
-          <span className='barItem' >Orden:</span>          
+          <span className='barItem' >Order by:</span>          
           <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
           <button className='btn' onClick={(e) => toggleascenDescen(e)}>
             {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}

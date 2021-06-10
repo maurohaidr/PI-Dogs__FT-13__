@@ -31,5 +31,8 @@
     color:rgb(218,127,143);
 }
 .formItem{
- margin-bottom: 10px;
+    margin-bottom: 10px;
+}
+.shorterImput{
+    width: 50px;
 }
