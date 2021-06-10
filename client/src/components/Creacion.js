@@ -56,8 +56,8 @@ export function Creacion() {
         <form className='form' onSubmit={(e) =>handleSubmit(e)}>
           <div className='formItem'>
             <span>Name</span>&nbsp;
-            <input className={state.exists && 'error'} type="text" onChange={handleChange} value={state.nombre} name='nombre' placeholder='name' required />
-            <span>{state.exists && <span>A breed with that name already exists</span>}</span>
+            <input className={state.exists && 'errorImput'} type="text" onChange={handleChange} value={state.nombre} name='nombre' placeholder='name' required />&nbsp;
+            <span>{state.exists && <span className='errorText'>A breed with that name already exists</span>}</span>
           </div>        
           <div className='formItem'>
               <span>Tempetament:</span>&nbsp;

@@ -42,12 +42,16 @@ const Home = (props) => {
     let toggleFilter = function(e){
       e.preventDefault();
       if(filter === 'Breed'){
+        props.getRazas(undefined)
         props.getTemps(raza.toLowerCase())      
         setFilter('Temperament')
+        setSearching(true)
       }
       else {
+        props.getRazas(undefined)
         props.getRazas(raza.toLowerCase())
-        setFilter('Breed')        
+        setFilter('Breed')
+        setSearching(true)        
       }
     }
 

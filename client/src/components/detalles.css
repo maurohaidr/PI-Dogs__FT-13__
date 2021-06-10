@@ -1,9 +1,12 @@
 .detContainer{
     display:block;    
     background-image:url('https://thumbs.dreamstime.com/b/cuaderno-de-brown-aislado-en-el-fondo-blanco-107381511.jpg') ;
-    min-height: 100vh; 
+    min-height: 98vh; 
     min-width: 100vh; 
     background-repeat: no-repeat;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(255,150,173);
 }
 .detBox{
     position:absolute;

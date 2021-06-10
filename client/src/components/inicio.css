@@ -1,8 +1,34 @@
 .IniCointainter{
-    display:block;
-/*     background-image:url('https://s1.eestatic.com/2021/04/25/curiosidades/mascotas/576453307_179177416_1706x960.jpg') ;     */
+    display:block;    
+    background-image:url('https://www.coppersdream.org/uploads/1/5/7/7/1577488/zoom_backgrounds.png') ;
     background-size:cover;
     min-height: 100vh; 
-    min-width: 100vh; 
+    min-width: 100vh;  
 }
+.dogIni{
+    position:fixed;
+    bottom:30px;
+    right:80vh;
+}
+.btnIni{
+    font-size: 35px;
+    position:fixed;
+    top:30vh;
+    left:93vh;
+    height:40x;
+    border-radius: 3px;
+    background-color: rgb(250,243,243);
+    color:rgb(2,46,87);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255,150,173);
+    outline:none;
+}
+.btnIni:hover{
+    color: rgb(250,243,243);
+    background-color:rgb(2,46,87, 0.8);
+}
+
+
+
 

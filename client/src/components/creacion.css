@@ -22,10 +22,13 @@
     outline:none;
     font-size:13px;
 }
-.error{
+.errorImput{
     border-width: 1px;
     border-style: solid;
     border-color: rgb(218,127,143);
+}
+.errorText{
+    color:rgb(218,127,143);
 }
 .formItem{
  margin-bottom: 10px;

@@ -9,10 +9,12 @@ import './inicio.css'
 export function Inicio() {
     return (
       <div className='IniCointainter'>
-          <h1>Inicio</h1>
           <Link to= '/home'>
-              <button>Ir al Home</button>
-          </Link>     
+              <button className='btnIni'>Start</button>
+          </Link>  
+          <div className='dogIni'>
+             <img  src='https://www.animatedimages.org/data/media/202/animated-dog-image-0712.gif' alt="" />
+          </div>   
       </div>
     )
   };
