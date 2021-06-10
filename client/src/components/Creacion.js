@@ -30,13 +30,17 @@ export function Creacion() {
         success: false,
     })
 
-    /* async function setNames() {
-        !state.names && setState({
-            ...state,
-            names: await axios.get("http://localhost:3001/dogNames").data
-        })
-    }
-    setNames() */
+    const isValidUrl = (str) => {
+        let regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+              if (regexp.test(str))
+              {
+                return true;
+              }
+              else
+              {
+                return false;
+              }
+      }
  
     const handleChange = () => {   
         setState({
@@ -49,20 +53,24 @@ export function Creacion() {
             vidaMax: document.querySelector('input[name=vidaMax]').value,
             nombre: document.querySelector('input[name=nombre]').value,
             temperamento: document.querySelector('input[name=temperamento]').value,
-            peso: document.querySelector('input[name=pesoMin]').value.concat(' - ').concat(document.querySelector('input[name=pesoMax]').value),
-            altura: document.querySelector('input[name=alturaMin]').value.concat(' - ').concat(document.querySelector('input[name=alturaMax]').value),
-            vida: document.querySelector('input[name=vidaMin]').value.concat(' - ').concat(document.querySelector('input[name=vidaMax]').value).concat(' years'),
+            peso: state.pesoMin.concat(' - ').concat(state.pesoMax),
+            altura: state.alturaMin.concat(' - ').concat(state.alturaMax),
+            vida: state.vidaMin.concat(' - ').concat(state.vidaMax).concat(' years'),
             imagen: document.querySelector('input[name=imagen]').value,
             success: false,
+            notUrl: false
         })
     }
+    
     const handleSubmit = async e => {        e.preventDefault()
 
         const names = await axios.get("http://localhost:3001/dogNames")
-        if(names.data.includes(state.nombre)) {console.log('includes name',state); setState({
+        if(names.data.includes(state.nombre)) {
+          setState({
             ...state,
             exists:true
-        })}
+          })
+        }
         else {
             setState({
             ...state,
@@ -70,7 +78,13 @@ export function Creacion() {
             })
             alert('Breed created')
         }
-        axios.post("http://localhost:3001/dog", state)
+
+        if(isValidUrl(state.imagen)) axios.post("http://localhost:3001/dog", state)
+        else {setState({
+            ...state,
+            notUrl:true
+        })}
+        
       }
       
     return (
@@ -86,27 +100,30 @@ export function Creacion() {
           </div>          
           <div className='formItem'>
               <span>Weight(lb)</span>&nbsp;
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.pesoMin} name='pesoMin' placeholder='min' required />
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.pesoMax} name='pesoMax' placeholder='max' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.pesoMin} name='pesoMin' placeholder='min' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.pesoMax} name='pesoMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
               <span>Height(inches)</span>&nbsp;
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.alturaMin} name='alturaMin' placeholder='min' required />
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.alturaMax} name='alturaMax' placeholder='max' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.alturaMin} name='alturaMin' placeholder='min' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.alturaMax} name='alturaMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
               <span>Life span(years)</span>&nbsp;
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.vidaMin} name='vidaMin' placeholder='min' required />
-              <input className='shorterImput' type="text" onChange={handleChange} value={state.vidaMax} name='vidaMax' placeholder='max' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.vidaMin} name='vidaMin' placeholder='min' required />
+              <input className='shorterImput' type="number" onChange={handleChange} value={state.vidaMax} name='vidaMax' placeholder='max' required />
           </div>          
           <div className='formItem'>
               <span>Image</span>&nbsp;
-              <input type="text" onChange={handleChange} value={state.imagen} name="imagen" placeholder="Url" required />
+              <input className={state.notUrl && 'errorImput'} type="text" onChange={handleChange} value={state.imagen} name="imagen" placeholder="Url" required />
           </div>
           <div>
           <input type='submit' value='Add'/>
           </div>
-          <span>{state.exists && <span className='errorText'>A breed with that name already exists</span>}</span>
+          <div>
+          <span className='errorMsg'>{state.exists && <span className='errorText'>A breed with that name already exists</span>}</span>
+          </div>
+          <span className='errorMsg'>{state.notUrl && <span className='errorText'>Image must be an Url</span>}</span>
         </form>  
       </div>
     )

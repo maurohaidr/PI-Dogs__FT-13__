@@ -36,3 +36,6 @@
 .shorterImput{
     width: 50px;
 }
+.errorMsg{
+    font-weight: bolder;
+}

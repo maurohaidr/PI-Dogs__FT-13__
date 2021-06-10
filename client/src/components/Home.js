@@ -120,6 +120,7 @@ const Home = (props) => {
           {props.razas && props.razas.length > 0 ? 
           <div className='btnPageBox'>
             <button className='btnPage' onClick={(e) => prevPage(e)}><BiLeftArrow /></button>
+            <span className='numberPage'>{page + 1}/{Math.ceil(props.razas.length/8)}</span>
             <button className='btnPage' onClick={(e) => nextPage(e)}><BiRightArrow/></button>   
           </div>
           : null
