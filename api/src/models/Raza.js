@@ -24,7 +24,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     imagen:{
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     }
   });
 };

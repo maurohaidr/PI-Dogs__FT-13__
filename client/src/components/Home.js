@@ -1,14 +1,3 @@
-/* Ruta principal: debe contener
-
-[ ] Input de búsqueda para encontrar razas de perros por nombre
-[ ] Área donde se verá el listado de razas de perros. Deberá mostrar su:
-Imagen
-Nombre
-Temperamento
-[ ] Botones/Opciones para filtrar por por temperamento y por raza existente o agregada por nosotros
-[ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las razas de perro por orden alfabético y por peso
-[ ] Paginado para ir buscando y mostrando las siguientes razas */
-
 import { Link } from 'react-router-dom';
 import './home.css'
 import{ getRazas, getTemps, reset, getId } from '../actions/actions'
@@ -25,7 +14,6 @@ const Home = (props) => {
     const [ascenDescen, setAscenDescen] = useState('BiUpArrowAlt')
     const [searching, setSearching] = useState(false)
 
-    props.getId(undefined) // seteo el detalle en undefined, para que no se guarde el detalle anterior al volver al home
 
     let handleChange = function (e) {
         setRaza(e.target.value);
@@ -62,11 +50,10 @@ const Home = (props) => {
       if(order === 'a-z'){
           setOrder('Weight')
           props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
-      //saco el promedio del peso y lo ordeno acorde a eso
       }
       if(order === 'Weight') {
           setOrder('a-z')
-          props.razas && props.razas.sort((a, b) => (a.nombre > b.nombre) ? 1 : -1)
+          props.razas && props.razas.sort((a, b) => (a.nombre.toLowerCase() > b.nombre.toLowerCase()) ? 1 : -1)
       }
     }
     let nextPage = function(e){
@@ -80,8 +67,16 @@ const Home = (props) => {
     }
     return (
       <div className='homeCointainter'>
-        <div className='bar'>
-          <form className="form-container" onSubmit={(e) => handleSubmit(e)}>
+        <div className='bar'>          
+          <span className='barItem'>Search by:</span>
+          <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
+          <span className='barItem' >Order by:</span>          
+          <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
+          <button className='btn' onClick={(e) => toggleascenDescen(e)}>
+            {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
+            {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}
+          </button>
+          <form className="formContainer" onSubmit={(e) => handleSubmit(e)}>
             <input
               className='input'
               type="text"
@@ -91,15 +86,7 @@ const Home = (props) => {
             />
             <button className='btn' type="submit">Search</button>
           </form> 
-          <span className='barItem'>Search by:</span>
-          <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
-          <span className='barItem' >Order by:</span>          
-          <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
-          <button className='btn' onClick={(e) => toggleascenDescen(e)}>
-            {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
-            {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}
-          </button>
-          <Link to='/creacion'>
+          <Link className='btnCreate' to='/creacion'>
             <button className='btn'>Add new breed</button>
           </Link>
         </div>
@@ -116,16 +103,15 @@ const Home = (props) => {
           <div className='cardsBox'>
             {props.razas && props.razas.length > 0 ? props.razas.slice(page*8, page*8+8).map((e) => {
               return(
-                <Link key={e.id} to={'/detalles'}>
-                  <div  onClick={() => {props.getId(
-                      {id:e.id, imagen:e.imagen, nombre:e.nombre, temperamento:e.temperamento, peso:e.peso, altura:e.altura, vida:e.vida}
-                  )}} 
+                /* <Link key={e.id} to={'/detalles'}> */
+                <Link key={e.id} to={`/detalles/${e.id}`}>                
+                  <div  onClick={() => {props.getId(undefined)}} 
                     className='razaCard'>
                     <img className='imgCard' src={e.imagen} width="240" height="160" alt="" />
                     <div className='textCard'>
                       <span className='homeName'>{e.nombre}</span>
                       <span>Temperament:</span><span>{e.temperamento}</span>
-{/*                       <span>Weight:</span><span>{e.peso}&nbsp;Lb</span> */}
+                   {/*<span>Weight:</span><span>{e.peso}&nbsp;Lb</span> */}
                     </div>
                   </div>
                 </Link>

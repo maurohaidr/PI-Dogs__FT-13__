@@ -11,7 +11,7 @@ const dogsIdRaza = function(req, res) {
             nombre: dog[0].name,
             altura: dog[0].height.metric,
             peso: dog[0].weight.metric,
-            añosDeVida: dog[0].life_span,
+            vida: dog[0].life_span,
             temperamento: dog[0].temperament,
             imagen: dog[0].image.url
         }
@@ -27,7 +27,7 @@ const dogsIdRaza = function(req, res) {
                     nombre: resultado.nombre,
                     altura: resultado.altura,
                     peso: resultado.peso,
-                    añosDeVida: resultado.añosDeVida,
+                    vida: resultado.vida,
                     temperamento: resultado.temperamento,
                     imagen: resultado.imagen
                 }

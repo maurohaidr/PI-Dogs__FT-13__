@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import configureStore from "redux-mock-store"
 import App from './App'
 import thunk from 'redux-thunk'
+import Home from './components/Home';
+import { Inicio } from './components/Inicio';
 
 configure({adapter: new Adapter()});
 
@@ -37,7 +39,7 @@ describe('Home', () => {
     const middlewares = [thunk]
     const mockStore = configureStore(middlewares);
     store = mockStore(state);
-
+  
   beforeEach(() => {    
     wrapper =  mount(
       <Provider store={store}>
@@ -47,8 +49,10 @@ describe('Home', () => {
       </Provider>
     )
   })
-
-  it('debe renderizar un link que contenga a cada elemento en el store', () => {
+  it('debe renderizar el componente Home', () => {
+    expect(wrapper.find(Home)).toHaveLength(1);
+  })
+  it('debe generar un link por cada elemento del store renderizado', () => {
     expect(wrapper.find(Link)).toHaveLength(3) //2 on store + 1 for creation
   })
   

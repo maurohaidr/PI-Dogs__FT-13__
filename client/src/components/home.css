@@ -14,7 +14,9 @@
     flex-direction: row;
     justify-content: center;
 }
-
+.formContainer{
+    margin-left: 50px;
+}
 .razaCard{
     border-radius: 25px;
     background-color: rgb(0,90,141, 0.4);
@@ -47,8 +49,8 @@
     border-style: solid;
     border-color: rgb(255,150,173);
 }
-.homeName{
-    font-size: 12px;
+.homeName{ 
+    font-size: 12px;  /* hago los nombres de raza siempre visibles */
 }
 .textCardNotFound{
     font-size:20px;
@@ -68,6 +70,7 @@
 
 }
 .bar{
+    padding-left:50px;
     height:40px;
     background-color: rgb(0,90,141, 0.4);
     padding-top: 10px;
@@ -97,6 +100,10 @@
     color: rgb(250,243,243);
     background-color:rgb(2,46,87, 0.8);
 }
+.btnCreate{
+    margin-left:50px;
+}
+
 .btnPage{
     height:25px;
     margin:10px;
@@ -123,9 +130,6 @@
     border-style: solid;
     border-color: rgb(255,150,173);
     outline:none;
-}
-.input{
-    margin-left: 5px;
 }
 .cardsBox{
   display:flex;

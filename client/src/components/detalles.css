@@ -10,14 +10,14 @@
 }
 .detBox{
     position:absolute;
-    left:75px;
+    left:90px;
     top:80px;
     border-radius: 5px;
     padding-bottom: 10px;
     display:flex;
     flex-direction: column;
     margin:5px;
-    width:550px;
+    width:530px;
     height: 450px;
 }
 .textDet{
@@ -39,4 +39,27 @@
     position:absolute;
     right:20px;
     bottom:30px;
+}
+.loadingDet{
+    display:flex;  
+    flex-direction: column;
+}
+.btnDet{
+    position:fixed;
+    left:20px;
+    top:20px;
+    height:25px;
+    margin-top:5px;
+    margin-left: 5px;
+    border-radius: 3px;
+    background-color: rgb(250,243,243);
+    color:rgb(2,46,87);
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(255,150,173);
+    outline:none;
+}
+.btnDet:hover{
+    color: rgb(250,243,243);
+    background-color:rgb(2,46,87, 0.8);
 }

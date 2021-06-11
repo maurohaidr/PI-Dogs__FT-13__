@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-export function getId(id) {
+/* export function getId(id) {
   if(id === undefined) {
     return function(dispatch) {
       dispatch({ type: GET_ID, payload: undefined });
@@ -10,6 +10,19 @@ export function getId(id) {
   return function(dispatch) {
     console.log(id)
         dispatch({ type: GET_ID, payload: id });
+  };
+} */
+export function getId(id) {
+  if(id === undefined){
+    return async function(dispatch) {
+      dispatch({ type: GET_ID, payload: undefined })
+    }
+  }
+  return async function(dispatch) {
+    console.log(id)
+    const result = await axios.get("http://localhost:3001/dogs/" + id);
+    console.log(id)
+    dispatch({ type: GET_ID, payload: result.data });
   };
 }
 

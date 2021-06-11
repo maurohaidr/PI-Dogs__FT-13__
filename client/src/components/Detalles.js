@@ -1,21 +1,22 @@
-/* Ruta de detalle de raza de perro: debe contener
-
-[ ] Los campos mostrados en la ruta principal para cada raza (imagen, nombre y temperamento)
-[ ] Altura
-[ ] Peso
-[ ] Años de vida */
-
-
 import { connect } from "react-redux";
 import { getId } from '../actions/actions'
-import React  from 'react';
+import React, { useEffect } from 'react';
 import './detalles.css'
+import { Link } from "react-router-dom";
 const Detalles = (props) => {
-    console.log('detalles', props.det)
+    console.log('detalles', props.match.params.id)
+    
+    useEffect(() => props.getId(props.match.params.id), [] ) //funciona como un componentDidMount
     return ( 
         <div className='detContainer'>
-            {props.det ?
             <div>
+              <img className='dogsDet' src='https://barks-and-recreation.com/wp-content/uploads/2018/04/Husky-Pups-Looking-Left-1000x753-min.png' width="540" height="360" alt="" />
+            </div>
+            <Link to='/home'>
+            <button className='btnDet'>Back</button>
+            </Link>
+            {props.det ?
+            <div >
             <div className='detBox'>
                 <img className='imgDet' src={props.det.imagen} width="360" height="240" alt="" />
                 <div className='textDet'>
@@ -26,12 +27,13 @@ const Detalles = (props) => {
                     <div className='textDetItem'><span>Life span:</span>&nbsp;<span>{props.det.vida}&nbsp;</span></div>
                 </div>
             </div> 
-            <div><img className='dogsDet' src='https://barks-and-recreation.com/wp-content/uploads/2018/04/Husky-Pups-Looking-Left-1000x753-min.png' width="540" height="360" alt="" /></div>
             </div>
-            :
-            <div>
-                <img src='http://northerntechmap.com/assets/img/loading-dog.gif' width="480" height="320" alt="" />
-            </div>
+            : 
+            <div classNamea='loadingDet'>
+              <div><img src='https://www.petbarn.com.au/skin/frontend/enterprise/petbarn/images/dropdowns/dropdown_dog.gif' width="480" height="320" alt="" /></div>
+              <div><span>Loading..</span></div>
+            </div> 
+
             }
         </div>
         )
@@ -45,7 +47,7 @@ const Detalles = (props) => {
   
   function mapDispatchToProps(dispatch) {
     return {
-        getId: raza => dispatch(getId(raza)),
+        getId: id => dispatch(getId(id)),
     };
   }
   
