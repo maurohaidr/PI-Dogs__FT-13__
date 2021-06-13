@@ -1,17 +1,6 @@
 import axios from "axios"
 
 
-/* export function getId(id) {
-  if(id === undefined) {
-    return function(dispatch) {
-      dispatch({ type: GET_ID, payload: undefined });
-    }
-  }
-  return function(dispatch) {
-    console.log(id)
-        dispatch({ type: GET_ID, payload: id });
-  };
-} */
 export function getId(id) {
   if(id === undefined){
     return async function(dispatch) {
@@ -50,13 +39,7 @@ export function getTemps(temp) {
       });
   };
 }
-export function reset() {
-  return function(dispatch) {
-         dispatch({ type: RESET });      
-  };
-}
 
-  export const RESET = "RESET"
   export const GET_RAZAS = "GET_RAZAS"
   export const GET_TEMPS = "GET_TEMPS"
   export const GET_ID = "GET_ID"

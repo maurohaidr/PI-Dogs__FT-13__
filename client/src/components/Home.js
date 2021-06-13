@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './home.css'
-import{ getRazas, getTemps, reset, getId } from '../actions/actions'
+import{ getRazas, getTemps, getId } from '../actions/actions'
 import React, { useState } from 'react';
 import { connect } from "react-redux";
 import {BiLeftArrow, BiRightArrow, BiDownArrowAlt, BiUpArrowAlt} from "react-icons/bi";
@@ -24,6 +24,10 @@ const Home = (props) => {
         setSearching(true)
         if(filter === 'Breed') props.getRazas(raza.toLowerCase())
         if(filter === 'Temperament') props.getTemps(raza.toLowerCase())
+        if(order === 'Weight') 
+          props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
+        if(order === 'a-z')
+          props.razas && props.razas.sort((a, b) => (a.nombre.toLowerCase() > b.nombre.toLowerCase()) ? 1 : -1)      
     }
     let toggleFilter = function(e){
       e.preventDefault();
@@ -37,12 +41,12 @@ const Home = (props) => {
     let toggleascenDescen = function(e){
       e.preventDefault();
       if(ascenDescen === 'BiDownArrowAlt'){
-      setAscenDescen('BiUpArrowAlt')
-      props.razas.reverse()
+        setAscenDescen('BiUpArrowAlt')
+        props.razas && props.razas.reverse()
       }
       else {
         setAscenDescen('BiDownArrowAlt')
-        props.razas.reverse()
+        props.razas && props.razas.reverse()
       }
     }
     let toggleOrder = function(e){
@@ -67,16 +71,8 @@ const Home = (props) => {
     }
     return (
       <div className='homeCointainter'>
-        <div className='bar'>          
-          <span className='barItem'>Search by:</span>
-          <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>
-          <span className='barItem' >Order by:</span>          
-          <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
-          <button className='btn' onClick={(e) => toggleascenDescen(e)}>
-            {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
-            {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}
-          </button>
-          <form className="formContainer" onSubmit={(e) => handleSubmit(e)}>
+        <div className='bar'>  
+        <form className="formContainer" onSubmit={(e) => handleSubmit(e)}>
             <input
               className='input'
               type="text"
@@ -85,7 +81,21 @@ const Home = (props) => {
               onChange={(e) => handleChange(e)}
             />
             <button className='btn' type="submit">Search</button>
-          </form> 
+          </form>
+          <span className='barItem'>Search:</span>
+          <button className='btn' onClick={(e) => toggleFilter(e)}>{filter}</button>      
+                   
+          {props.razas && props.razas.length > 0 ? 
+            <div>
+            <span className='barItem' >Order:</span>
+            <button className='btn' onClick={(e) => toggleOrder(e)}>{order}</button>
+            <button className='btn' onClick={(e) => toggleascenDescen(e)}>
+              {ascenDescen === 'BiUpArrowAlt' && <BiUpArrowAlt/>}
+              {ascenDescen === 'BiDownArrowAlt' && <BiDownArrowAlt/>}          
+            </button>
+            </div>
+            : null
+          }
           <Link className='btnCreate' to='/creacion'>
             <button className='btn'>Add new breed</button>
           </Link>
@@ -145,7 +155,6 @@ const Home = (props) => {
       getRazas: raza => dispatch(getRazas(raza)), 
       getTemps: temp => dispatch(getTemps(temp)),
       getId: id => dispatch(getId(id)),
-      reset: () => dispatch(reset())
     };
   }
   

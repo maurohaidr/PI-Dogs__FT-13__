@@ -7,11 +7,11 @@ const agent = session(app);
 
 describe('GET /', function () {
   it('responde con 200', function() {
-    return agent.get('/dogs')
+    agent.get('/dogs')
     .expect(200);
   });
   it('espera que sea json', function(){
-    return agent.get('/dogs')
+    agent.get('/dogs')
       .expect('Content-Type', /json/);
   });
 });

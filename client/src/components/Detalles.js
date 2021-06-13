@@ -3,10 +3,9 @@ import { getId } from '../actions/actions'
 import React, { useEffect } from 'react';
 import './detalles.css'
 import { Link } from "react-router-dom";
-const Detalles = (props) => {
-    console.log('detalles', props.match.params.id)
-    
-    useEffect(() => props.getId(props.match.params.id), [] ) //funciona como un componentDidMount
+
+const Detalles = (props) => {    
+    useEffect(() => props.getId(props.match.params.id), [props.match.params.id]) //funciona como un componentDidMount
     return ( 
         <div className='detContainer'>
             <div>

@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-const { Raza } = require('../db');
+const { Raza, Temperamento } = require('../db');
 
 const dogsIdRaza = function(req, res) {
     let razaId = parseInt(req.params.idRaza)
@@ -20,15 +20,19 @@ const dogsIdRaza = function(req, res) {
     .catch(err => {return res.status(500).json(err)})
     }else{
         razaId = razaId - 264
-        Raza.findByPk(razaId).then(resultado => {
-            console.log(resultado)
-            if (resultado) {
+        Raza.findOne({ include: Temperamento, where: { id: razaId  } }).then(resultado => {
+            if (resultado) {                  
+                let temperamento = '';
+                resultado.temperamentos.forEach(i =>{
+                    temperamento = temperamento.concat(i.nombre + ', ') //junto el array de temperamentos en un string
+                })
+                temperamento = temperamento.slice(0, temperamento.length-2) //elimino el ultimo ', '
                 const retDog = {
                     nombre: resultado.nombre,
                     altura: resultado.altura,
                     peso: resultado.peso,
                     vida: resultado.vida,
-                    temperamento: resultado.temperamento,
+                    temperamento: temperamento,
                     imagen: resultado.imagen
                 }
               res.json(retDog)

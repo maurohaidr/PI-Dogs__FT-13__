@@ -1,4 +1,4 @@
-import { GET_RAZAS, GET_TEMPS, RESET, GET_ID } from '../actions/actions'
+import { GET_RAZAS, GET_TEMPS, GET_ID } from '../actions/actions'
 
 const initialState = {
     razas: undefined,
@@ -27,12 +27,6 @@ export default function reducer(state = initialState, action) {
         return{
         ...state,
         detalle: action.payload
-        }
-      }
-      case RESET: {
-        return{
-        ...state,
-        razas: undefined
         }
       }
       default:{

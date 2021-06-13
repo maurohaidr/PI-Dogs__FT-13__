@@ -34,7 +34,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { Dog, Raza, Temperamento } = sequelize.models;
 
 
-/*     axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos
+    /* axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos
       let temps = [];
       let unicos = [];
       resultado.data.forEach(e => {
