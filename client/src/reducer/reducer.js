@@ -3,7 +3,6 @@ import { GET_RAZAS, GET_TEMPS, GET_ID } from '../actions/actions'
 const initialState = {
     razas: undefined,
     detalle: undefined,
-    /* id: undefined */
   }
 
 export default function reducer(state = initialState, action) {
@@ -15,7 +14,6 @@ export default function reducer(state = initialState, action) {
         razas: action.payload
         }
       }
-
       case GET_TEMPS: {
         return{
         ...state,

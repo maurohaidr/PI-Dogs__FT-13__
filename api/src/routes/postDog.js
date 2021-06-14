@@ -3,7 +3,7 @@ const { Raza, Temperamento } = require('../db');
 
 const postDog = function(req, res) {
     let {nombre, peso, altura, vida, imagen, temperamento} = req.body; 
-    axios('http://localhost:3001/dogNames').then(r => { // hago un axios a mi back y me devuelve un listado con solo los nombres de las razas
+    axios('http://localhost:3001/dogNames').then(r => {
       if(r.data.includes(nombre)) return res.status(422).send('La raza ya existe')
       else{
         const temps = temperamento.toLowerCase().replace(/ /g, "").split(',') 
@@ -20,8 +20,8 @@ const postDog = function(req, res) {
                 resultado.addTemperamento(result) 
               )
             })
-          }) 
-        })        
+          })
+        })    
       return res.send('Raza creada')
       }
     })

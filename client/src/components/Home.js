@@ -22,6 +22,7 @@ const Home = (props) => {
         e.preventDefault(); 
         props.getRazas(undefined)
         setSearching(true)
+        setPage(0)
         if(filter === 'Breed') props.getRazas(raza.toLowerCase())
         if(filter === 'Temperament') props.getTemps(raza.toLowerCase())
         if(order === 'Weight') 
@@ -113,7 +114,6 @@ const Home = (props) => {
           <div className='cardsBox'>
             {props.razas && props.razas.length > 0 ? props.razas.slice(page*8, page*8+8).map((e) => {
               return(
-                /* <Link key={e.id} to={'/detalles'}> */
                 <Link key={e.id} to={`/detalles/${e.id}`}>                
                   <div  onClick={() => {props.getId(undefined)}} 
                     className='razaCard'>
@@ -137,8 +137,7 @@ const Home = (props) => {
                   <span>Loading..</span>
               </div>                             
             }
-          </div>
-          
+          </div>          
         </div>
       </div>      
     )

@@ -124,7 +124,7 @@ export function Creacion() {
             <button className='btnCreOut'>Back</button>
         </Link>
         <div className='form'>
-        <span>(*) campos obligatorios</span><br/>&nbsp;
+        <span>(*) required fields</span><br/>&nbsp;
         <form  onSubmit={(e) =>handleSubmit(e)}>
           <div className='formItem'>
             <span>Name</span>&nbsp;

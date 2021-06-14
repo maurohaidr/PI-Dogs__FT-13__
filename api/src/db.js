@@ -31,7 +31,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Dog, Raza, Temperamento } = sequelize.models;
+const { Raza, Temperamento } = sequelize.models;
 
 
     /* axios.get('https://api.thedogapi.com/v1/breeds').then(resultado =>{ //cargo los temperamentos de la api en mi base de datos

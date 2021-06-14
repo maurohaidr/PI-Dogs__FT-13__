@@ -14,9 +14,7 @@ const dogs = function(req, res) {
                         imagen: e.image.url,
                         nombre: e.name,
                         temperamento: e.temperament,
-                        peso: e.weight.imperial,
-                        altura: e.height.imperial,
-                        vida: e.life_span
+                        peso: e.weight.imperial
                     })
                 }
             })
@@ -32,9 +30,7 @@ const dogs = function(req, res) {
                     nombre: f.nombre,
                     imagen: f.imagen,
                     temperamento: temperamento,
-                    peso: f.peso,
-                    altura: f.altura,
-                    vida: f.vida
+                    peso: f.peso
                 })
             })
             return res.json(ret)        
@@ -53,8 +49,6 @@ const dogs = function(req, res) {
             nombre: e.name,
             temperamento: e.temperament,
             peso: e.weight.imperial,
-            altura: e.height.imperial,
-            vida: e.life_span
             })
         })
         Raza.findAll({ include: Temperamento }).then(resultado => {
@@ -69,9 +63,7 @@ const dogs = function(req, res) {
                     nombre: f.nombre,
                     imagen: f.imagen,
                     temperamento: temperamento,
-                    peso: f.peso,
-                    altura: f.altura,
-                    vida: f.vida
+                    peso: f.peso
                 })
             })
             return res.json(ret)        
