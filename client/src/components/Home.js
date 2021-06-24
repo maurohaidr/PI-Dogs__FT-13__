@@ -25,10 +25,6 @@ const Home = (props) => {
         setPage(0)
         if(filter === 'Breed') props.getRazas(raza.toLowerCase())
         if(filter === 'Temperament') props.getTemps(raza.toLowerCase())
-        if(order === 'Weight') 
-          props.razas && props.razas.sort((a, b) => ( parseInt(a.peso.slice(0 , 3)) > parseInt(b.peso.slice(0 , 3))) ? 1 : -1)
-        if(order === 'a-z')
-          props.razas && props.razas.sort((a, b) => (a.nombre.toLowerCase() > b.nombre.toLowerCase()) ? 1 : -1)      
     }
     let toggleFilter = function(e){
       e.preventDefault();

@@ -5,7 +5,7 @@ import './detalles.css'
 import { Link } from "react-router-dom";
 
 const Detalles = (props) => {    
-    useEffect(() => props.getId(props.match.params.id), [props.match.params.id]) //funciona como un componentDidMount
+    useEffect(() => props.getId(props.match.params.id), [props.match.params.id]) 
     return ( 
         <div className='detContainer'>
             <div>

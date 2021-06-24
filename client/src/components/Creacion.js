@@ -118,6 +118,7 @@ export function Creacion() {
         })
       }
     }
+    
     return (
       <div className='formBox'>
         <Link to='/home'>
@@ -173,7 +174,7 @@ export function Creacion() {
                   return(
                     <div>  
                     <label for={e}>{e}</label>
-                    <input onChange={(e) => addTemp(e)}type="checkbox" name={e} value={e} />    
+                    <input onChange={(e) => addTemp(e)} type="checkbox" name={e} value={e} />    
                     </div>
                     )
                   })            

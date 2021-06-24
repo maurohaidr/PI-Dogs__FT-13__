@@ -7,7 +7,6 @@ import configureStore from "redux-mock-store"
 import App from './App'
 import thunk from 'redux-thunk'
 import Home from './components/Home';
-import { Inicio } from './components/Inicio';
 
 configure({adapter: new Adapter()});
 
@@ -25,6 +24,7 @@ describe('Home', () => {
         imagen:"random url",
         temperamento:"torpe, jugueton, alegre"
       },
+      
       { 
         id: 2,
         nombre:"perro 2",
@@ -54,6 +54,5 @@ describe('Home', () => {
   })
   it('debe generar un link por cada elemento del store renderizado', () => {
     expect(wrapper.find(Link)).toHaveLength(3) //2 on store + 1 for creation
-  })
-  
+  })  
 });
