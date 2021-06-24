@@ -6,7 +6,7 @@ const postDog = function(req, res) {
     axios('http://localhost:3001/dogNames').then(r => {
       if(r.data.includes(nombre)) return res.status(422).send('La raza ya existe')
       else{
-        const temps = temperamento.toLowerCase().replace(/ /g, "").split(',') 
+        const temps = temperamento.toLowerCase().replace(/ /g, "").split(',')
         axios('http://localhost:3001/temperament').then(resultado => {
           temps.forEach(i => {
             if(!resultado.data.includes(i)) {

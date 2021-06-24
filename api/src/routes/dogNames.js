@@ -13,8 +13,8 @@ const dogNames = function(req, res) {
           names.push(i.name)
       })
       return res.json(names)
-  })
- 
+  }) 
+  
   })
   .catch(error => res.status(500).json(error))
 }

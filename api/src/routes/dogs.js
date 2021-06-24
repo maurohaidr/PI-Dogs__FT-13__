@@ -22,7 +22,7 @@ const dogs = function(req, res) {
             resultado.forEach(f => {
                 let temperamento = '';
                 f.temperamentos.forEach(i =>{
-                    temperamento = temperamento.concat(i.nombre + ', ') //junto el array de temperamentos en un string
+                    temperamento = temperamento.concat(i.nombre + ', ')
                 })
                 temperamento = temperamento.slice(0, temperamento.length-2) //elimino el ultimo ', '
                 ret.push({

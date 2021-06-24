@@ -24,9 +24,9 @@ const dogsIdRaza = function(req, res) {
             if (resultado) {                  
                 let temperamento = '';
                 resultado.temperamentos.forEach(i =>{
-                    temperamento = temperamento.concat(i.nombre + ', ') //junto el array de temperamentos en un string
+                    temperamento = temperamento.concat(i.nombre + ', ')
                 })
-                temperamento = temperamento.slice(0, temperamento.length-2) //elimino el ultimo ', '
+                temperamento = temperamento.slice(0, temperamento.length-2)
                 const retDog = {
                     nombre: resultado.nombre,
                     altura: resultado.altura,
