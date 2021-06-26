@@ -7,9 +7,22 @@ const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
+/* const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/dogs`, {
   logging: false, // set to console.log to see the raw SQL queries
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+}); */ 
+const sequelize = new Sequelize(`postgres://oaozniryxkbkjz:c82f8e2321438789486b6cc02a4173465d5a6e931779754d37b5049a78ea23f5@ec2-34-195-143-54.compute-1.amazonaws.com:5432/d7si8g79sbm47t`, {
+  logging: false, // set to console.log to see the raw SQL queries
+  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+  dialect: "postgres",
+    ssl: true,
+    protocol: "postgres",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
 });
 const basename = path.basename(__filename);
 
